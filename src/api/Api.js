@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../shared/constants';
 
-const url = 'http://localhost:5000';
+const url = API_BASE_URL;
 
 // export const createPost = (newProduct) => axios.post(url, newProduct);
 export const loginUser = (data) => axios.post(`${url}/user/login`, data);
