@@ -10,29 +10,23 @@ import * as api from '../../api/Api'
 const UserHome = () =>{
     const [data, setData] = useState(null);
 
-    useEffect(() =>{
-        try{
-            let temp = api.getImagesByProject(1);
-        }catch(err){
-            console.log(err);
-        }
-    },[])
+    // useEffect(() =>{
+    //     try{
+    //         let temp = api.getImagesByProject(1);
+    //     }catch(err){
+    //         console.log(err);
+    //     }
+    // },[])
 
 
     return(
         <div className={'userhome'}>
-            {/*<div className={'viewer'}>*/}
-            {/*    <InitCornerstone/>*/}
-            {/*</div>*/}
-            {/*<div className={'rank'}>*/}
-            {/*    <Rank/>*/}
-            {/*</div>*/}
-            {/*<h1>User Home</h1>*/}
             <div className={'userProjects'}>
+                <h1>User Home</h1>
                 <UserProjects/>
             </div>
         </div>
     )
 }
 
-export default UserHome
+export default UserHome;

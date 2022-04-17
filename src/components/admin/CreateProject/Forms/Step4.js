@@ -188,7 +188,7 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-const Step4 = ({projectForm, setProjectForm}) => {
+const Step4 = ({projectForm, setProjectForm, rows}) => {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState(projectForm.RubricID);
@@ -205,7 +205,7 @@ const Step4 = ({projectForm, setProjectForm}) => {
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
             console.log("Fart")
-            const newSelecteds = rows.map((n) => n.RubricId);
+            const newSelecteds = rows.map((n) => n.rubric_id);
             setSelected(newSelecteds);
             setProjectForm({...projectForm, RubricID:newSelecteds})
             return;
@@ -273,17 +273,17 @@ const Step4 = ({projectForm, setProjectForm}) => {
                             {stableSort(rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.RubricId);
+                                    const isItemSelected = isSelected(row.rubric_id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.RubricId)}
+                                            onClick={(event) => handleClick(event, row.rubric_id)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.RubricId}
+                                            key={row.rubric_id}
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
@@ -301,7 +301,7 @@ const Step4 = ({projectForm, setProjectForm}) => {
                                                 scope="row"
                                                 padding="none"
                                             >
-                                                {row.Name}
+                                                {row.rubric_title}
                                             </TableCell>
                                         </TableRow>
                                     );

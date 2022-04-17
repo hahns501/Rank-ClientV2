@@ -23,6 +23,8 @@ export const logout = createAsyncThunk("auth/logout", async () => {
     sessionStorage.clear()
 });
 
+
+//refresh problem with auth headers
 const initialState = user
     ? {user, accessToken, auth: true}
     : {user: null, accessToken: null, auth: null}

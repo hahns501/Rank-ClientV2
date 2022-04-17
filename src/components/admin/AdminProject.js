@@ -1,12 +1,18 @@
-import React, {useState} from 'react'
-import {AdminProjects} from './AdminProjects';
-import './AdminProjects.css';
+import React, {useEffect, useState} from 'react'
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from "@mui/material/IconButton";
+import { useNavigate } from 'react-router-dom';
+import * as api from '../../api/Api'
 
 import CreateProject from "./CreateProject/CreateProject";
+
+import './AdminProjects.css';
+
+// navigate('thepath', {state: {//...values}}})
 
 function LinearProgressWithLabel(props) {
     return (
@@ -25,8 +31,33 @@ function LinearProgressWithLabel(props) {
 
 
 const AdminProject = () => {
-    const [addProject, setAddProject] = useState(false)
-    // const [projects, setProjects] = useState(false)
+    const [addProject, setAddProject] = useState(false);
+    const [projects, setProjects] = useState([])
+
+    let navigate = useNavigate();
+
+    const updateProjects = async () => {
+        let {data} = await api.getAllProjects();
+        setProjects(Object.values(data));
+    }
+
+    const handleDelete = async (id) => {
+        try{
+            await api.deleteProject(id);
+
+            updateProjects();
+        }catch(err){
+            console.log(err);
+            alert('Delete Error')
+        }
+    }
+
+    useEffect(async()=>{
+        let {data} = await api.getAllProjects();
+        setProjects(Object.values(data));
+        console.log('Effect in AdminProject')
+    },[])
+
 
     function AdminProjectPage() {
         return (
@@ -35,30 +66,39 @@ const AdminProject = () => {
                 <table id={'Projects'}>
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Completion</th>
-                        <th>Created</th>
+                        <th width={'40%'}>Name</th>
+                        <th width={'40%'}>Completion</th>
+                        <th width={'20%'}>Created</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {AdminProjects.map((val, key) => {
+                    {projects.map((val, key) => {
                         return(
                             <tr
                                 // onClick={() => {history.push('/projects/rank/' + val.ProjectID)}}
-                                onClick={()=>{console.log(`Project ID:${val.ID}`)}}
+                                onClick={()=>{navigate(`/admin/projects/${val.project_id}`, {state: {val}})}}
                                 key = {key}
                             >
                                 <th>
-                                    {val.Name}
+                                    {val.project_name}
                                 </th>
                                 <td>
                                     {/*{val.CompleteProjects}/{val.TotalProjects}*/}
                                     <Box sx={{ width: '50%' }}>
-                                        <LinearProgressWithLabel value={(val.CompleteProjects/val.TotalProjects)*100} />
+                                        {/*<LinearProgressWithLabel value={(val.CompleteProjects/val.TotalProjects)*100} />*/}
+                                        <LinearProgressWithLabel value={0} />
                                     </Box>
                                 </td>
                                 <td>
-                                    {val.Created}
+                                    {val.created_at.substring(0, val.created_at.indexOf('T'))}
+                                </td>
+                                <td>
+                                    <IconButton
+                                        onClick={() => handleDelete(val.project_id)}
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
                                 </td>
                             </tr>
 
@@ -72,7 +112,7 @@ const AdminProject = () => {
 
     return (
         <div>
-            {addProject ? <CreateProject setAddProject={setAddProject} /> : <AdminProjectPage/>}
+            {addProject ? <CreateProject setAddProject={setAddProject} updateProject={updateProjects} /> : <AdminProjectPage/>}
         </div>
     )
 }

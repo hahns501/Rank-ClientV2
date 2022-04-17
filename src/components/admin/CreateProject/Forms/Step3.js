@@ -35,20 +35,20 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import {Button} from "@mui/material";
 
-function createData(ImageId, Name){
-    return {
-        ImageId,
-        Name,
-    }
-}
-
-const rows = [
-    createData(1, 'Image Set 1'),
-    createData(2, 'Image Set 2'),
-    createData(3, 'Image Set 3'),
-    createData(4, 'Image Set 4'),
-    createData(5, 'Image Set 5'),
-]
+// function createData(ImageId, Name){
+//     return {
+//         ImageId,
+//         Name,
+//     }
+// }
+//
+// const rows = [
+//     createData(1, 'Image Set 1'),
+//     createData(2, 'Image Set 2'),
+//     createData(3, 'Image Set 3'),
+//     createData(4, 'Image Set 4'),
+//     createData(5, 'Image Set 5'),
+// ]
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -200,7 +200,7 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-const Step3 = ({projectForm, setProjectForm}) => {
+const Step3 = ({projectForm, setProjectForm, rows}) => {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState(projectForm.ImageID);
@@ -216,7 +216,7 @@ const Step3 = ({projectForm, setProjectForm}) => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.ImageId);
+            const newSelecteds = rows.map((n) => n.image_set_id);
             setSelected(newSelecteds);
             return;
         }
@@ -282,17 +282,17 @@ const Step3 = ({projectForm, setProjectForm}) => {
                             {stableSort(rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.ImageId);
+                                    const isItemSelected = isSelected(row.image_set_id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.ImageId)}
+                                            onClick={(event) => handleClick(event, row.image_set_id)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.ImageId}
+                                            key={row.image_set_id}
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
@@ -310,7 +310,7 @@ const Step3 = ({projectForm, setProjectForm}) => {
                                                 scope="row"
                                                 padding="none"
                                             >
-                                                {row.Name}
+                                                {row.image_set_name}
                                             </TableCell>
                                         </TableRow>
                                     );

@@ -1,9 +1,9 @@
 import React from 'react';
 import { TextField, Slider, Button} from "@mui/material";
-import './CreateRubric.css'
+import './CreateRubricQuestion.css'
 
 
-const CreateRubric = ({inputQuestion, setInputQuestion, slideValue, setSlideValue,setAllQuestions, allQuestions}) => {
+const CreateRubricQuestion = ({inputQuestion, setInputQuestion, slideValue, setSlideValue,setAllQuestions, allQuestions}) => {
 
     const handleSlideChange = (event, newValue) => {
         setSlideValue(newValue)
@@ -64,4 +64,4 @@ const CreateRubric = ({inputQuestion, setInputQuestion, slideValue, setSlideValu
     )
 }
 
-export default CreateRubric
+export default CreateRubricQuestion
