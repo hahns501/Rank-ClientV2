@@ -1,0 +1,11 @@
+.CreateRubric{
+    display: flex;
+    flex-direction: column;
+}
+
+.CreateRubricTitle{
+    display:flex;
+
+    justify-content: space-between;
+    align-items: center;
+}

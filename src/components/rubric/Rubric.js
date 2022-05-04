@@ -1,77 +1,54 @@
-import React, {useState,useEffect} from 'react';
-import CreateRubric from "../admin/CreateRubric";
-import {Button} from '@mui/material'
+import React, {useEffect, useState} from 'react';
+import {Button, IconButton} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import * as api from '../../api/Api'
+import Stack from '@mui/material/Stack';
+import {Route, useNavigate} from 'react-router-dom';
+
+import CreateRubric from './CreateRubric/CreateRubric';
+import RubricChart from "./RubricChart/RubricChart";
 
 const Rubric = () => {
-
-    const defQuestion = {
-        question: '',
-        description: '',
-    }
-
-    const defSlide = [0,10]
-    const [inputQuestion, setInputQuestion] = useState(defQuestion);
-    const [slideValue, setSlideValue] = useState(defSlide);
-    const [allQuestions, setAllQuestions] = useState([])
-
+    const [rubrics, setRubrics] = useState([]);
     const [showAdd, setShowAdd] = useState(false);
+    const navigate = useNavigate();
 
-    useEffect(()=>{
-        console.log(allQuestions)
-    },[allQuestions])
+    useEffect(async()=>{
+        let {data} = await api.getRubrics();
+        setRubrics(Object.values(data));
+    },[])
 
+    const updateRubric = async () => {
+        let {data} = await api.getRubrics();
+        console.log('Update Rubric Function');
 
-    const handleAdd = () =>{
-        console.log(showAdd)
-        setShowAdd(!showAdd)
+        setRubrics(Object.values(data));
     }
 
-    const handleSubmit = () => {
-        console.log(allQuestions);
+    const handleAdd = () => {
+        navigate('/admin/rubric/create')
     }
 
+    const Rubric = () => {
+        return (
+            <div>
+                <Stack direction="row" spacing={0} p={0}>
+                    <h1>Rubrics</h1>
+                    <IconButton aria-label="add" onClick={handleAdd} size={"large"} sx={{ minHeight: 0, minWidth: 0, padding: 0 }}>
+                        <AddIcon fontSize={"inherit"}/>
+                    </IconButton>
+                </Stack>
 
-    return(
+                <RubricChart updateFunc={updateRubric} rows={rubrics}/>
+            </div>
+        )
+    }
+
+    return (
         <div>
-            <h1>Rubric</h1>
-            <Button variant={"contained"} onClick={handleAdd} startIcon={<AddIcon/>}>Add</Button>
-            {showAdd
-            ?<CreateRubric
-                inputQuestion={inputQuestion}
-                setInputQuestion={setInputQuestion}
-                slideValue={slideValue}
-                setSlideValue={setSlideValue}
-                setAllQuestions={setAllQuestions}
-                allQuestions={allQuestions}
-            />
-            : ""
-            }
-            <h1>Questions</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Number</th>
-                        <th>Question</th>
-                        <th>Scale</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {allQuestions.map((val,key) =>{
-                    return(
-                            <tr>
-                                <th>1</th>
-                                <th>{val.question}</th>
-                                <th>{val.min}-{val.max}</th>
-                            </tr>
-                        )
-                })}
-
-                </tbody>
-            </table>
-            <Button variant={'contained'} onClick={handleSubmit}>Submit</Button>
+            {showAdd ? <CreateRubric handleAdd2={handleAdd} /> : <Rubric/>}
         </div>
     )
 }
 
-export default Rubric
+export default Rubric;

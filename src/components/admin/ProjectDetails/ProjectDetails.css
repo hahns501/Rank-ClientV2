@@ -1,0 +1,22 @@
+#users{
+    /*background-color: #f2f2f2;*/
+    text-align: left;
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+}
+
+#users tr:nth-child(even){background-color: #f2f2f2}
+
+#users td, #Projects th{
+    padding: 8px;
+}
+
+#users thead th {
+    /*background-color: #457B9D;*/
+    border-bottom: 2px solid #e1e5eb;
+}
+
+#users tbody th:hover{
+    color: #457B9D;
+}

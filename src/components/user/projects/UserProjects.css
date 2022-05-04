@@ -1,0 +1,38 @@
+.UserProjects{
+    /*margin: 10px;*/
+}
+
+.userProjects{
+    margin: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+    color: 'white';
+}
+
+.userProjects h1{
+    margin:0;
+}
+
+.Projects{
+    /*background-color: #f2f2f2;*/
+    text-align: left;
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+}
+
+.userProjects .Projects tr:nth-child(even){background-color: #f2f2f2}
+
+.userProjects .Projects td, .Projects th{
+    padding: 8px;
+}
+
+.Projects thead th {
+    /*background-color: #457B9D;*/
+    border-bottom: 2px solid #e1e5eb;
+}
+
+.Projects tbody th:hover{
+    cursor: default;
+    color: #457B9D;
+}

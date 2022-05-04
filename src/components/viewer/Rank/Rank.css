@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+.ranker {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-size: 180%;
+    font-family: 'Noto Sans', sans-serif;
+}
+.ranker .question {
+    /*background-color: lightgoldenrodyellow;*/
+    flex: 3;
+}
+
+.ranker .rankerSlider .mat-button-toggle-group{
+    border-radius: 20px !important;
+}
+
+.ranker .rankerStepper {
+    font-size: 70%;
+}

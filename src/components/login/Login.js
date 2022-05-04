@@ -5,6 +5,11 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 import './Login.css'
 import {login} from "../user/authSlice";
+import {ThemeProvider, styled} from "@mui/material/styles";
+import theme from '../../theme'
+
+import TextField from '@mui/material/TextField';
+// const
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -36,18 +41,26 @@ const Login = () => {
         }
     };
 
-    // Redirect back if user is already logged in
-    if(auth){
-        console.log("Already Logged In")
-    }
+
+    useEffect(()=>{
+        if(auth){
+            const user = JSON.parse(sessionStorage.getItem("user"));
+            if(user?.role === 'user'){
+                navigate('/user');
+            }else{
+                navigate('/admin');
+            }
+        }
+    },[auth])
+
 
     // Login using redux
     const onLoginSubmit = () => {
         setLoading(true);
-        dispatch(login(testData))
+        dispatch(login(loginData))
             .unwrap()
             .then((response) => {
-                const {user, accessToken} = response
+                const {user, accessToken} = response;
                 sessionStorage.setItem('accessToken', JSON.stringify(accessToken))
                 sessionStorage.setItem('user', JSON.stringify(user))
 
@@ -77,10 +90,59 @@ const Login = () => {
 
     return (
         <div className={"loginForm"}>
-            <label>Login</label>
-            <input placeholder={"Username"} type={"text"} value={loginData.username} onChange={(e) => setLoginData({...loginData, username: e.target.value})}/>
-            <input placeholder={"Password"} type={"text"} value={loginData.password} onChange={(e) => setLoginData({...loginData, password: e.target.value})}/>
-            <Button variant={'contained'} onClick={onLoginSubmit}>Login</Button>
+            <h1>Login</h1>
+            <TextField
+                variant={'outlined'}
+                label={"Username"}
+                margin={"normal"}
+                value={loginData.username}
+                onChange={(e) => setLoginData({...loginData, username: e.target.value})}
+                sx={{
+                    backgroundColor: 'white',
+                    '& label.Mui-focused':{
+                        color: 'black',
+                    },
+                    '& .MuiOutlinedInput-root':{
+                        '&.Mui-focused fieldset':{
+                            borderColor: 'black',
+                        },
+                        '&:hover fieldset': {
+                            // borderColor: 'yellow',
+                        },
+                    },
+                }}
+            />
+            <TextField
+                variant={'outlined'}
+                label={"Password"}
+                value={loginData.password}
+                onChange={(e) => setLoginData({...loginData, password: e.target.value})}
+                sx={{
+                    backgroundColor: 'white',
+                    '& label.Mui-focused':{
+                        color: 'black',
+                    },
+                    '& .MuiOutlinedInput-root':{
+                        '&.Mui-focused fieldset':{
+                            borderColor: 'black',
+                        },
+                        '&:hover fieldset': {
+                            // borderColor: 'yellow',
+                        },
+                    },
+                }}
+            />
+            <Button
+                sx={{':hover': {
+                        outline: 'black solid',
+                        bgcolor: 'white', // theme.palette.primary.main
+                        color: 'black',
+                    }}}
+                variant={'contained'}
+                onClick={onLoginSubmit}
+            >
+                Login
+            </Button>
         </div>
     )
 }

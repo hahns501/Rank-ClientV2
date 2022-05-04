@@ -1,0 +1,21 @@
+.corner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /*background-color: black;*/
+}
+
+.corner .Toolbar{
+    background-color: white;
+}
+
+.corner .viewportElement{
+    background-color: black;
+}
+
+.corner .viewportElement .cornerstone-canvas{
+    border-radius: 0 20px 0 0;
+    /*background-color: black;*/
+    /*border-style: solid;*/
+    /*border-color: #1565C0;*/
+}

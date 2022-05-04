@@ -2,39 +2,44 @@
     display:flex;
 
     justify-content: center;
+    align-content: center;
     flex-direction: column;
 
     border-radius: 7px;
     background-color: #f2f2f2;
     padding: 15px;
 
-    margin: 35px auto;
-    max-width: 350px;
-    font-family: sans-serif;
+    max-width: 400px;
+    align-self: center;
+    width: 100%;
+    margin-top: 10em;
 }
 
-.loginForm label{
-    font-size: 20px;
+.loginForm h1{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    font-weight: 700;
+
     margin: 10px auto;
 }
 
-.loginForm input{
-    width: inherit;
-    border: 2px solid #ccc;
-    padding: 12px 10px;
-    margin: 8px;
-    border-radius: 4px;
+.loginForm TextField{
+    font-family: 'Montserrat', sans-serif;
+    /*font-weight: Bold;*/
 }
 
-/*.loginForm button{*/
-/*    background-color: #457B9D;*/
-/*    color: white;*/
-/*    width: 60%;*/
-/*    border: 2px solid #ccc;*/
-/*    padding: 10px 20px;*/
-/*    border-radius: 4px;*/
-/*    margin: 10px auto;*/
-/*}*/
+.loginForm Button{
+    background-color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: white;
+    width: 60%;
+    /*border: 2px solid #ccc;*/
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+}
 
 .loginTest {
     display:flex;

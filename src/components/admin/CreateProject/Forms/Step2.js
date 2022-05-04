@@ -1,15 +1,3 @@
-// import React from 'react'
-//
-// const Step2 = () => {
-//     return(
-//         <div>
-//             Step2
-//         </div>
-//     )
-// }
-//
-// export default Step2
-
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
@@ -35,20 +23,21 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import {Button} from "@mui/material";
 
-function createData(UserId, FirstName, LastName, JobPosition){
-    return {
-        UserId,
-        FirstName,
-        LastName,
-        JobPosition,
-    }
-}
 
-const rows = [
-    createData(0,'Sang', 'Ab', 'Janitor'),
-    createData(1, 'Sarah', 'Ba', 'Doctor'),
-    createData(2, 'Joey', 'Ca', 'Technician')
-]
+// function createData(UserId, FirstName, LastName, JobPosition){
+//     return {
+//         UserId,
+//         FirstName,
+//         LastName,
+//         JobPosition,
+//     }
+// }
+//
+// const rows = [
+//     createData(0,'Sang', 'Ab', 'Janitor'),
+//     createData(1, 'Sarah', 'Ba', 'Doctor'),
+//     createData(2, 'Joey', 'Ca', 'Technician')
+// ]
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -82,35 +71,23 @@ function stableSort(array, comparator) {
 
 const headCells = [
     {
-        id: 'FirstName',
+        id: 'first_name',
         numeric: false,
         disablePadding: true,
         label: 'First',
     },
     {
-        id: 'LastName',
+        id: 'last_name',
         numeric: false,
         disablePadding: false,
         label: 'Last',
     },
     {
-        id: 'JobPosition',
+        id: 'job_position',
         numeric: false,
         disablePadding: false,
         label: 'Job Position',
     },
-    // {
-    //     id: 'carbs',
-    //     numeric: true,
-    //     disablePadding: false,
-    //     label: 'Carbs (g)',
-    // },
-    // {
-    //     id: 'protein',
-    //     numeric: true,
-    //     disablePadding: false,
-    //     label: 'Protein (g)',
-    // },
 ];
 
 function EnhancedTableHead(props) {
@@ -203,19 +180,6 @@ const EnhancedTableToolbar = (props) => {
                 </Typography>
             )}
 
-            {/*{numSelected > 0 ? (*/}
-            {/*    <Tooltip title="Delete">*/}
-            {/*        <IconButton>*/}
-            {/*            <DeleteIcon />*/}
-            {/*        </IconButton>*/}
-            {/*    </Tooltip>*/}
-            {/*) : (*/}
-            {/*    <Tooltip title="Filter list">*/}
-            {/*        <IconButton>*/}
-            {/*            <FilterListIcon />*/}
-            {/*        </IconButton>*/}
-            {/*    </Tooltip>*/}
-            {/*)}*/}
         </Toolbar>
     );
 };
@@ -224,7 +188,7 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-const Step2 = ({projectForm, setProjectForm}) => {
+const Step2 = ({projectForm, setProjectForm, rows}) => {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState(projectForm.ProjectUsers);
@@ -240,7 +204,7 @@ const Step2 = ({projectForm, setProjectForm}) => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.UserId);
+            const newSelecteds = rows.map((n) => n.user_id);
             setSelected(newSelecteds);
             setProjectForm({...projectForm, ProjectUsers:newSelecteds})
             return;
@@ -318,17 +282,17 @@ const Step2 = ({projectForm, setProjectForm}) => {
                             {stableSort(rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.UserId);
+                                    const isItemSelected = isSelected(row.user_id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.UserId)}
+                                            onClick={(event) => handleClick(event, row.user_id)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.UserId}
+                                            key={row.user_id}
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
@@ -346,10 +310,10 @@ const Step2 = ({projectForm, setProjectForm}) => {
                                                 scope="row"
                                                 padding="none"
                                             >
-                                                {row.FirstName}
+                                                {row.first_name}
                                             </TableCell>
-                                            <TableCell align="left">{row.LastName}</TableCell>
-                                            <TableCell align="left">{row.JobPosition}</TableCell>
+                                            <TableCell align="left">{row.last_name}</TableCell>
+                                            <TableCell align="left">{row.job_position}</TableCell>
                                             {/*<TableCell align="right">{row.carbs}</TableCell>*/}
                                             {/*<TableCell align="right">{row.protein}</TableCell>*/}
                                         </TableRow>
