@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+.HomePage {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: black;
+}
+
+.HomePage .HomeMain{
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.HomePage .HomeMain .HomeRight{
+    height: 100%;
+    flex: 1;
+    align-self: center;
+    margin: 0;
+    padding: 0;
+}
+
+.HomePage .HomeMain .HomeLeft{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*align-content: space-between;*/
+    /*height: 100%;*/
+
+    flex: 1;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    align-self: center;
+    padding: 20px;
+    font-size: 1.2em;
+    /*border-style: solid;*/
+    /*border-color: black;*/
+    /*border-radius: 20px;*/
+}
+
+.HomePage .HomeMain .HomeLeft .Title{
+
+}
+
+.HomePage .HomeMain .HomeLeft .HomeLogin .Button{
+    color: black;
+}
+
+.HomePage .HomeMain .HomeRight img{
+    /*height: inherit;*/
+    max-width: 100%;
+    max-height: 100%;
+}

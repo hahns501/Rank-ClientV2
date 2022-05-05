@@ -1,14 +1,17 @@
 import React, {useState,useEffect} from 'react';
-import CreateRubricQuestion from "./CreateRubricQuestion";
 import { TextField, Button} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import Stack from '@mui/material/Stack';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useNavigate } from 'react-router-dom';
 
 import * as api from '../../../api/Api'
-
+import CreateRubricTable from "./CreateRubricTable/CreateRubricTable";
 import './CreateRubric.css'
 
-const CreateRubric = ({handleAdd2}) => {
+const CreateRubric = () => {
 
     const defQuestion = {
         question: '',
@@ -29,18 +32,10 @@ const CreateRubric = ({handleAdd2}) => {
     const [allQuestions, setAllQuestions] = useState([]);
     const [rubric_title, setRubric_title] = useState('');
 
-    // const [rubric, setRubric] = useState()
+    const [open, setOpen] = useState(true);
+    const [open2, setOpen2] = useState(false);
 
-    const [showAdd, setShowAdd] = useState(false);
-
-    useEffect(()=>{
-        console.log(allQuestions)
-    },[allQuestions])
-
-    const handleAdd = () =>{
-        console.log(showAdd)
-        setShowAdd(!showAdd)
-    }
+    const navigate = useNavigate();
 
     const handleSubmit = async () => {
         if (rubric_title === ''){
@@ -54,62 +49,103 @@ const CreateRubric = ({handleAdd2}) => {
             questions: allQuestions,
         }
 
-        console.log(rub);
-
-        let temp = await api.createRubric(rub);
-        console.log(temp);
+        try{
+            let {status} = await api.createRubric(rub);
+            setOpen2(true);
+        }catch(err){
+            alert('Server Error');
+        }
     }
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleClickOpen2 = () => {
+        setOpen2(true);
+    };
+
+    const handleClose2 = () => {
+        setOpen2(false);
+    };
+
+    const ServerResDialog = () =>{
+        return(
+            <Dialog
+                open={open2}
+                onClose={handleClose2}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Success"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Rubric successfully submitted
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={()=>{navigate('/admin/rubric')}} autoFocus>
+                        Continue
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        )
+    }
 
     return(
-        <div>
-            <Button variant={'contained'} onClick={handleAdd2}>Back</Button>
-            <h1>Create Rubric</h1>
-            <Stack>
-                <TextField
-                    id={"rubric_title"}
-                    label={"Rubric Title"}
-                    variant={"outlined"}
-                    value = {rubric_title}
-                    onChange={(e)=>{setRubric_title(e.target.value)}}
-                />
-                <Button sx={{ maxWidth:100 }} variant={"contained"} onClick={handleAdd} startIcon={<AddIcon/>}>Add</Button>
-            </Stack>
-            {showAdd
-                ?<CreateRubricQuestion
+        <div className={'CreateRubric'}>
+            <ServerResDialog/>
+            <Dialog open={open} onClose={handleClose} maxWidth={'md'}>
+                <DialogTitle>Title Creation</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Please enter a title for the rubric.
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="rubric_title"
+                        label="Rubric Title"
+                        fullWidth
+                        variant="standard"
+                        value={rubric_title}
+                        onChange={(e)=>{setRubric_title(e.target.value)}}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={()=>{navigate(-1)}}>Cancel</Button>
+                    <Button onClick={handleClose}>Submit</Button>
+                </DialogActions>
+            </Dialog>
+            <div className={'CreateRubricTitle'}>
+                <h1>Create Rubric</h1>
+                <Button
+                    variant={'contained'}
+                    onClick={handleSubmit}
+                    sx={{minWidth:'10em'}}
+                >
+                    Submit
+                </Button>
+            </div>
+            <div className={'CreateRubricTable'}>
+                <CreateRubricTable
                     inputQuestion={inputQuestion}
                     setInputQuestion={setInputQuestion}
                     slideValue={slideValue}
                     setSlideValue={setSlideValue}
                     setAllQuestions={setAllQuestions}
                     allQuestions={allQuestions}
+                    rubric_title={rubric_title}
                 />
-                : ""
-            }
-            <h1>Questions</h1>
-            <table>
-                <thead>
-                <tr>
-                    <th>Number</th>
-                    <th>Question</th>
-                    <th>Scale</th>
-                </tr>
-                </thead>
-                <tbody>
-                {allQuestions.map((val,key) =>{
-                    return(
-                        <tr>
-                            <th>1</th>
-                            <th>{val.question}</th>
-                            <th>{val.min}-{val.max}</th>
-                        </tr>
-                    )
-                })}
-
-                </tbody>
-            </table>
-            <Button variant={'contained'} onClick={handleSubmit}>Submit</Button>
+            </div>
         </div>
+
     )
 }
 

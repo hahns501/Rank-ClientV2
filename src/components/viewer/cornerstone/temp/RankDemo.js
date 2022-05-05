@@ -56,7 +56,7 @@ export default function Rank() {
     };
 
     return (
-        <Box sx={{ maxWidth: 'inherit', minHeight: 'inherit', flexGrow: 1 }}>
+        <Box sx={{ maxWidth: 'inherit', minHeight: 'inherit'}}>
             {/*<Paper*/}
             {/*    square*/}
             {/*    elevation={0}*/}
@@ -70,9 +70,10 @@ export default function Rank() {
             {/*>*/}
             {/*    <Typography>{steps[activeStep].label}</Typography>*/}
             {/*</Paper>*/}
-            <Box sx={{ height: 660, maxWidth: 400, width: '100%', p: 2, fontSize: 30}}>
-                {steps[activeStep].description}
-            </Box>
+            {/*<Box sx={{ height: 660, maxWidth: 400, width: '100%', p: 2, fontSize: 30}}>*/}
+            {/*    {steps[activeStep].description}*/}
+            {/*</Box>*/}
+            {steps[activeStep].description}
 
             <Box sx={{ width: '80%', margin: 'auto', marginBottom: 3}}>
                 <Slider

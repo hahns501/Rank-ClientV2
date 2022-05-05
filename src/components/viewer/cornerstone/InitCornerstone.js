@@ -8,7 +8,6 @@ import CornerstoneViewport from "react-cornerstone-viewport";
 import React,{useState} from "react";
 
 export default function InitCornerstone() {
-
     // Cornerstone Tools
     cornerstoneTools.external.cornerstone = cornerstone;
     cornerstoneTools.external.Hammer = Hammer;
@@ -68,18 +67,13 @@ export default function InitCornerstone() {
         'wadouri:https://imagerankerdicomtest.s3.amazonaws.com/foldertest1/1-010.dcm'
     ]);
 
-    // const [imageID, setImageID] = useState([
-    //     "dicomweb://s3.amazonaws.com/lury/PTCTStudy/1.3.6.1.4.1.25403.52237031786.3872.20100510032220.11.dcm",
-    //     "dicomweb://s3.amazonaws.com/lury/PTCTStudy/1.3.6.1.4.1.25403.52237031786.3872.20100510032220.12.dcm"
-    // ]);
-
     return (
         <div>
             <CornerstoneViewport
                 imageIds={imageID}
                 tools={tools}
                 // viewportOverlayComponent={CustomOverlay}
-                style={{ minWidth: "100%", height: "800px", flex: "1" }}
+                style={{ width: "800px", height: "500px", flex: "1" }}
             />
         </div>
     );

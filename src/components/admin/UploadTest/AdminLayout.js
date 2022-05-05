@@ -3,9 +3,11 @@ import NavBar from "../NavBar/NavBar";
 import { Outlet } from "react-router-dom";
 import Box from "@mui/material/Box";
 
+import './AdminLayout.css'
+
 const AdminLayout = () => {
     return (
-        <div>
+        <div className={'AdminLayout'}>
             <NavBar/>
             <main>
                 <Box sx={{m:2}}>

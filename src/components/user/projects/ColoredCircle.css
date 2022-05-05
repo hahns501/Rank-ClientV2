@@ -1,8 +1,8 @@
 div .colored-circle {
-    width: 12px;
-    height: 12px;
-    margin-top: 4px;
+    width: 18px;
+    height: 18px;
+    margin-top: 6px;
     margin-right: 6px;
     float: left;
-    border-radius: 50%;
+    border-radius: 100%;
 }

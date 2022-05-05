@@ -7,7 +7,7 @@ import {userApi} from "../services/userApi";
 export default configureStore({
     reducer: {
         [userApi.reducerPath]: userApi.reducer,
-        auth: authReducer
+        auth: authReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(userApi.middleware),

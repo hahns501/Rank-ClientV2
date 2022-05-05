@@ -33,12 +33,14 @@ function LinearProgressWithLabel(props) {
 const AdminProject = () => {
     const [addProject, setAddProject] = useState(false);
     const [projects, setProjects] = useState([])
+    // const [completion, setCompletion] = useState(0);
 
     let navigate = useNavigate();
 
     const updateProjects = async () => {
         let {data} = await api.getAllProjects();
         setProjects(Object.values(data));
+        console.log(data);
     }
 
     const handleDelete = async (id) => {
@@ -52,12 +54,33 @@ const AdminProject = () => {
         }
     }
 
+
     useEffect(async()=>{
         let {data} = await api.getAllProjects();
-        setProjects(Object.values(data));
-        console.log('Effect in AdminProject')
-    },[])
+        // setProjects(Object.values(data));
+        console.log('Effect in AdminProject');
+        let temp = Object.values(data);
 
+        // Calculated Completion
+        let temp2 = temp.map((val)=>{
+            let {users} = val;
+
+            let completed = 0;
+            for(const user of users){
+                if (user.status){
+                    // console.log('True')
+                    completed = completed+1;
+                }
+            }
+            let Completion = (completed/users.length)*100;
+
+            return({
+                "Completion": Completion,
+                ...val
+            })
+        })
+        setProjects(temp2);
+    },[])
 
     function AdminProjectPage() {
         return (
@@ -76,7 +99,6 @@ const AdminProject = () => {
                     {projects.map((val, key) => {
                         return(
                             <tr
-                                // onClick={() => {history.push('/projects/rank/' + val.ProjectID)}}
                                 onClick={()=>{navigate(`/admin/projects/${val.project_id}`, {state: {val}})}}
                                 key = {key}
                             >
@@ -87,7 +109,7 @@ const AdminProject = () => {
                                     {/*{val.CompleteProjects}/{val.TotalProjects}*/}
                                     <Box sx={{ width: '50%' }}>
                                         {/*<LinearProgressWithLabel value={(val.CompleteProjects/val.TotalProjects)*100} />*/}
-                                        <LinearProgressWithLabel value={0} />
+                                        <LinearProgressWithLabel value={val.Completion} />
                                     </Box>
                                 </td>
                                 <td>

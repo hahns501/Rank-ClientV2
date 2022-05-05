@@ -3,6 +3,7 @@ import {Button, IconButton} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import * as api from '../../api/Api'
 import Stack from '@mui/material/Stack';
+import {Route, useNavigate} from 'react-router-dom';
 
 import CreateRubric from './CreateRubric/CreateRubric';
 import RubricChart from "./RubricChart/RubricChart";
@@ -10,6 +11,7 @@ import RubricChart from "./RubricChart/RubricChart";
 const Rubric = () => {
     const [rubrics, setRubrics] = useState([]);
     const [showAdd, setShowAdd] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(async()=>{
         let {data} = await api.getRubrics();
@@ -24,7 +26,7 @@ const Rubric = () => {
     }
 
     const handleAdd = () => {
-        setShowAdd(!showAdd);
+        navigate('/admin/rubric/create')
     }
 
     const Rubric = () => {
