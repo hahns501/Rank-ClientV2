@@ -1,0 +1,46 @@
+.register{
+    display:flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 35em;
+
+    margin-top:5em;
+    align-self: center;
+    border-radius: 7px;
+
+    padding: 2em;
+    background-color: #f2f2f2;
+}
+
+.register h1{
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;;
+}
+
+.register .name{
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    gap: .5em;
+}
+
+.register .occupation{
+    display: flex;
+    gap: .5em;
+}
+
+.register Button{
+    background-color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: white;
+    width: 60%;
+    /*border: 2px solid #ccc;*/
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}
+

@@ -1,24 +1,3 @@
-// import React from 'react'
-// import Button from "@mui/material/Button";
-// import {useNavigate} from 'react-router-dom'
-//
-// const AdminHome = () =>{
-//     const navigate = useNavigate();
-//
-//     const goProjects = () =>{
-//         navigate('projects')
-//     }
-//
-//     return(
-//         <div>
-//             <h1>Admin Home</h1>
-//             <Button variant={'contained'} onClick={goProjects}>Projects</Button>
-//         </div>
-//     )
-// }
-//
-// export default AdminHome
-
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -29,6 +8,7 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import BallotIcon from '@mui/icons-material/Ballot';
+import ImageIcon from '@mui/icons-material/Image';
 import {Link, useLocation } from "react-router-dom";
 
 export default function NavBar() {
@@ -58,7 +38,7 @@ export default function NavBar() {
             case 'rubric':
                 setValue(3);
                 break
-            case 'test':
+            case 'image':
                 setValue(4);
                 break
             default:
@@ -75,7 +55,7 @@ export default function NavBar() {
                         <Tab icon={<AssignmentIndIcon/>} iconPosition="start" label="Projects"  component={Link} to={'/admin/projects'}/>
                         <Tab icon={<PersonIcon/>} iconPosition="start" label="Users"  component={Link} to={'/admin/users'}/>
                         <Tab icon={<BallotIcon/>} iconPosition="start" label="Rubric" component={Link} to={'/admin/rubric'}/>
-                        {/*<Tab label="Test" component={Link} to={'/admin/upload'} />*/}
+                        <Tab disabled icon={<ImageIcon/>} iconPosition={"start"} label="image" component={Link} to={'/admin/image'} />
                     </Tabs>
                 </Box>
             </Box>

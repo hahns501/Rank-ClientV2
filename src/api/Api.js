@@ -8,6 +8,7 @@ const url = 'http://localhost:5000';
 export const loginUser = (data) => axios.post(`${url}/user/login`, data);
 export const testUser = () => axios.post(`${url}/user/test`);
 export const getAllUsers = () => axios.get(`${url}/user`)
+export const registerUser = (data) => axios.post(`${url}/user/register`,data);
 
 //Project
 export const getUserProjects = () => axios.get(`${url}/project`);
@@ -20,6 +21,7 @@ export const submitProjectData = (data) => axios.post(`${url}/project/submit`, d
 
 //Image
 export const getImageSets = () => axios.get(`${url}/image`);
+export const uploadImages = (files) => axios.post(`${url}/image/upload`, files);
 
 //Rubric
 export const getRubrics = () => axios.get(`${url}/rubric`);

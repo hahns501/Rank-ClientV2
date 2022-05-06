@@ -21,8 +21,10 @@ import AdminProject from "./components/admin/AdminProject";
 import AdminHome from "./components/admin/AdminHome";
 import AdminUsers from "./components/admin/AdminUsers/AdminUsers";
 import CreateRubric from "./components/rubric/CreateRubric/CreateRubric";
+import Upload from "./components/admin/UploadTest/Upload";
 
 import './App.css'
+import Registration from "./components/Registration/Registration";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -53,6 +55,7 @@ const App = () => {
                         {/*public routes*/}
                         <Route path={"/"} element={<Home/>}/>
                         <Route path={"login"} element={<Login/>}/>
+                        <Route path={"register"} element={<Registration/>}/>
                         <Route path={"unauthorized"} element={<Unauth/>}/>
 
                         {/*protect routes*/}
@@ -70,6 +73,7 @@ const App = () => {
                                 <Route path={"users"} element={<AdminUsers/>}/>
                                 <Route path={"rubric"} element={<Rubric/>}/>
                                 <Route path={"rubric/create"} element={<CreateRubric/>}/>
+                                <Route path={"image"} element={<Upload/>}/>
                             </Route>
                         </Route>
 
